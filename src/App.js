@@ -1,22 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
+import book from './assets/book.png';
+import Icon_button from './components/icon_button';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Library Booking System</h1>
+        <Icon_button />
       </header>
     </div>
   );
