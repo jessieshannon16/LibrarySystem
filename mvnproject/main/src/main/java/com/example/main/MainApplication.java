@@ -21,7 +21,6 @@ public class MainApplication {
 		Users user = ReadUser.readUser(Integer.parseInt(id));
 		if (user != null)
 		{
-			System.out.println("TEST");
 			return user.getUserName();
 		}
 		return "Error";
