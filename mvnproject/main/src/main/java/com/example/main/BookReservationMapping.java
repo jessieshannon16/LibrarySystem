@@ -15,6 +15,8 @@ public class BookReservationMapping{
     private String Isbn;
     private LocalDateTime ReturnDate;
     private boolean IsReturned;
+	private Book book;
+	private Reservations reservations;
 
 	public int getId() {
 		return this.Id;
@@ -54,5 +56,25 @@ public class BookReservationMapping{
 
 	public void setIsReturned(boolean IsReturned) {
 		this.IsReturned = IsReturned;
+	}
+
+	@ManyToOne
+	@JoinColumn(name="Isbn")
+	public Book getBook() {
+		return this.book;
+	}
+
+	public void setBook(Book book) {
+		this.book = book;
+	}
+
+	@ManyToOne
+	@JoinColumn(name="ReservationId", referencedColumnName="Id")
+	public Reservations getReservations() {
+		return this.reservations;
+	}
+
+	public void setReservations(Reservations reservations) {
+		this.reservations = reservations;
 	}
 }

@@ -17,6 +17,7 @@ public class Users{
     private String Password;
     private LocalDateTime LastLogin;
     private boolean IsActive;
+	private Set<Reservations> reservations;
 
 	public int getId() {
 		return this.Id;
@@ -73,4 +74,14 @@ public class Users{
 	public void setIsActive(boolean IsActive) {
 		this.IsActive = IsActive;
 	}
+
+	@OneToMany(mappedBy="user",cascade = CascadeType.ALL)
+	public Set<Reservations> getReservations() {
+		return this.reservations;
+	}
+
+	public void setReservations(Set<Reservations> reservations) {
+		this.reservations = reservations;
+	}
+
 }   

@@ -13,6 +13,8 @@ public class Reservations{
     private int Id;
     private int UserId;
     private LocalDateTime TakeDate;
+    private Users user;
+	private Set<BookReservationMapping> bookReservationMappings;
 
 	public int getId() {
 		return this.Id;
@@ -36,5 +38,24 @@ public class Reservations{
 
 	public void setTakeDate(LocalDateTime TakeDate) {
 		this.TakeDate = TakeDate;
+	}
+
+	@ManyToOne
+	@JoinColumn(name="UserId", referencedColumnName="Id")
+	public Users getUser() {
+		return this.user;
+	}
+
+	public void setUser(Users user) {
+		this.user = user;
+	}
+
+	@OneToMany(mappedBy="reservations",cascade = CascadeType.ALL)
+	public Set<BookReservationMapping> getBookReservationMappings() {
+		return this.bookReservationMappings;
+	}
+
+	public void setBookReservationMappings(Set<BookReservationMapping> bookReservationMappings) {
+		this.bookReservationMappings = bookReservationMappings;
 	}
 }

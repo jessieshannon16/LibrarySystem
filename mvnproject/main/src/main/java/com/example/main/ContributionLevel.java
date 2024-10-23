@@ -12,6 +12,7 @@ public class ContributionLevel{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
     private String Level;
+	private Set<BookAuthorMapping> bookAuthorMappings;
 
 	public int getId() {
 		return this.Id;
@@ -27,5 +28,14 @@ public class ContributionLevel{
 
 	public void setLevel(String Level) {
 		this.Level = Level;
+	}
+
+	@OneToMany(mappedBy="contributionLevel",cascade = CascadeType.ALL)
+	public Set<BookAuthorMapping> getBookAuthorMappings() {
+		return this.bookAuthorMappings;
+	}
+
+	public void setBookAuthorMappings(Set<BookAuthorMapping> bookAuthorMappings) {
+		this.bookAuthorMappings = bookAuthorMappings;
 	}
 }

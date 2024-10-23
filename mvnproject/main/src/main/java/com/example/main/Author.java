@@ -13,6 +13,7 @@ public class Author{
     private int Id;
     private String FirstName;
     private String LastName;
+	private Set<BookAuthorMapping> bookAuthorMappings;
 
 	public int getId() {
 		return this.Id;
@@ -36,5 +37,14 @@ public class Author{
 
 	public void setLastName(String LastName) {
 		this.LastName = LastName;
+	}
+
+	@OneToMany(mappedBy="author",cascade = CascadeType.ALL)
+	public Set<BookAuthorMapping> getBookAuthorMappings() {
+		return this.bookAuthorMappings;
+	}
+
+	public void setBookAuthorMappings(Set<BookAuthorMapping> bookAuthorMappings) {
+		this.bookAuthorMappings = bookAuthorMappings;
 	}
 }
