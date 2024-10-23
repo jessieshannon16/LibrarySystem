@@ -10,9 +10,10 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.CascadeType;
+import java.io.*;
 
 @Entity
-public class Book{
+public class Book implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String Isbn;
@@ -110,5 +111,10 @@ public class Book{
 
 	public void setBookReservationMappings(Set<BookReservationMapping> bookReservationMappings) {
 		this.bookReservationMappings = bookReservationMappings;
+	}
+
+	@Override
+	public String toString(){
+		return this.Title;
 	}
 }

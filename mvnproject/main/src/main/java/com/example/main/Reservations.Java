@@ -10,9 +10,10 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.CascadeType;
+import java.io.*;
 
 @Entity
-public class Reservations{
+public class Reservations implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;

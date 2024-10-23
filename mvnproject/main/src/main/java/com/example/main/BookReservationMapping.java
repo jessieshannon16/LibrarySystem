@@ -7,9 +7,10 @@ import jakarta.persistence.Id;
 import java.time.LocalDateTime;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
+import java.io.*;
 
 @Entity
-public class BookReservationMapping{
+public class BookReservationMapping implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;

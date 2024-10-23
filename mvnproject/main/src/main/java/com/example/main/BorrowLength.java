@@ -8,9 +8,10 @@ import java.time.LocalDateTime;
 import java.util.Set;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
+import java.io.*;
 
 @Entity
-public class BorrowLength{
+public class BorrowLength implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
