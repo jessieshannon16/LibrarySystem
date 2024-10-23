@@ -4,16 +4,16 @@ import Taskbar from './components/taskbar';
 import Browse from './pages/Browse'
 import CheckIn from './pages/CheckIn'
 import CheckOut from './pages/CheckOut'
+import BookCard from './components/bookCard';
+import { Outlet } from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
       <Taskbar className='taskbar'/>
-      <header className="App-header">
-        
-        <h1>Library Booking System</h1>
-      </header>
+      <Outlet />
     </div>
+    
   );
 }
 

@@ -1,15 +1,15 @@
+
+import CardGrid from '../components/CardGrid';
 import Icon_button from '../components/icon_button';
 import Taskbar from '../components/taskbar';
 
 function Browse() {
   return (
-    <div className="App">
-      <Taskbar className='taskbar'/>
-      <header className="App-header">
+    <div className="Browse">
+ 
         
-        <h1>Browse Library</h1>
-        <Icon_button />
-      </header>
+        <CardGrid />
+      
     </div>
   );
 }

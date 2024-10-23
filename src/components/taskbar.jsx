@@ -10,12 +10,12 @@ export default function Taskbar() {
         <ul className='taskbar'>
          
             <li><Icon_button /></li>
-            <li><a href="\Browse.js">Browse Library</a></li>
+            <li><a href="\Browse">Browse Library</a></li>
             
 
-            <li><a href='\CheckIn.js'>Check-In Book</a></li>
+            <li><a href='\CheckIn'>Check-In Book</a></li>
        
-            <li><a href='\CheckOut.js'>Check-Out Book</a></li>
+            <li><a href='\CheckOut'>Check-Out Book</a></li>
             <li><Menu /></li>
             </ul>
      

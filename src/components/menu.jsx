@@ -1,4 +1,3 @@
-import icon from '../assets/whiteBook.png'
 import { Dropdown, DropdownToggle } from "react-bootstrap";
 import menu_style from '../styles/menu_style.css';
 import Login from '../pages/Login';
