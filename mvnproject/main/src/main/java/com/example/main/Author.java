@@ -51,4 +51,8 @@ public class Author implements Serializable{
 	public void setBookAuthorMappings(Set<BookAuthorMapping> bookAuthorMappings) {
 		this.bookAuthorMappings = bookAuthorMappings;
 	}
+
+	public String toString(){
+		return this.FirstName + " " + this.LastName;
+	}
 }

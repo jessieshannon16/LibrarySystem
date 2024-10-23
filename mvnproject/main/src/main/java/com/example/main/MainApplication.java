@@ -29,7 +29,35 @@ public class MainApplication {
 		return data;
   }
 
-	@GetMapping("/author")
+	@GetMapping(value="/author")
+	public String author(){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            List<Author> authors = loadAllData(Author.class,session);
+            if (authors != null) {
+				System.out.println("Authors found");
+				
+				String result = "";
+				for(Author author:authors){
+					result += author.toString();
+				}
+
+				return result;
+            } 
+			else {
+                System.out.println("Author not found!");
+				return "Error";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error";
+        } finally {
+            session.close();
+        }
+	}
+
+	@GetMapping(value="/author",params="id")
 	public String author(@RequestParam(name="id") String id){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -52,13 +80,10 @@ public class MainApplication {
 
 	@GetMapping("/book")
 	public String book(){
-		System.out.println("Hit3");
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		System.out.println("Hit");
 
 		try {
             List<Book> books = loadAllData(Book.class,session);
-			System.out.println("Hit2");
 			if(books != null){
 				System.out.println("Books found");
 				
@@ -67,6 +92,30 @@ public class MainApplication {
 					result += book.toString();
 				}
 				return result;
+			}
+			else{
+				return "Error";
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return "Error";
+		}
+		finally {
+            session.close();
+        }
+	}
+
+	@GetMapping(value="/book",params="id")
+	public String book(@RequestParam(name="id") String id){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		try {
+            Book book = session.get(Book.class,id);
+			if(book != null){
+				System.out.println("Book found");
+
+				return book.getTitle();
 			}
 			else{
 				return "Error";
