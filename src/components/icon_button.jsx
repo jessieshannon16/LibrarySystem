@@ -1,5 +1,5 @@
-import icon from '../assets/book.png'
+import icon from '../assets/whiteBook.png'
 
 export default function Icon_button() {
-    return <a href='src\App.js'><img src={icon} alt='icon_button'></img></a>
+    return <a href='\App.js'><img src={icon} alt='icon_button' height='50px' text-align='left' ></img></a>
 }

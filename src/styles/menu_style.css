@@ -1,0 +1,28 @@
+svg{
+    color: white;
+    height: 40px;
+    fill: currentColor;
+}
+
+.dropdown{
+    background: none;
+    border: none;
+}
+
+.dropdownBox {
+    background-color: #005C46;
+    color:white;
+    
+}
+
+.dropdownBox:hover{
+    background-color: #005C46;
+}
+
+.dropdownText{
+    color:white;
+}
+.btn-success{
+    --bs-btn-hover-bg:#005C46;
+    --bs-btn-active-bg:#005C46
+}
