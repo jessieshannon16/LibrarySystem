@@ -2,7 +2,7 @@ package com.example.util;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import com.example.entity.Users;
+import com.example.entity.Author;
 
 public class HibernateUtil {
     private static final SessionFactory sessionFactory = buildSessionFactory();
@@ -10,7 +10,7 @@ public class HibernateUtil {
     private static SessionFactory buildSessionFactory() {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
-            Configuration config = new Configuration().configure().addAnnotatedClass(Users.class);
+            Configuration config = new Configuration().configure().addAnnotatedClass(Author.class);
             return config.buildSessionFactory();
         } catch (Throwable ex) {
             // Make sure you log the exception, as it might be swallowed
