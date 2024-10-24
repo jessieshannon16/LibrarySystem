@@ -9,6 +9,7 @@ import java.sql.*;
 import java.lang.*;
 import com.example.entity.Author;
 import com.example.entity.Book;
+import com.example.entity.Genre;
 import com.example.util.HibernateUtil;
 import org.hibernate.Session;
 import jakarta.persistence.criteria.*;
@@ -65,7 +66,7 @@ public class MainApplication {
             Author author = session.get(Author.class, id);
             if (author != null) {
                 System.out.println("Author details: " + author.getFirstName() + " " + author.getLastName());
-				return "Author details: " + author.getFirstName() + " " + author.getLastName();
+				return author.toString();
             } else {
                 System.out.println("Author not found!");
 				return "Error";
@@ -115,7 +116,59 @@ public class MainApplication {
 			if(book != null){
 				System.out.println("Book found");
 
-				return book.getTitle();
+				return book.toString();
+			}
+			else{
+				return "Error";
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return "Error";
+		}
+		finally {
+            session.close();
+        }
+	}
+
+	@GetMapping("/genre")
+	public String genre(){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		try {
+            List<Genre> genres = loadAllData(Genre.class,session);
+			if(genres != null){
+				System.out.println("Genres found");
+				
+				String result = "";
+				for(Genre genre:genres){
+					result += genre.toString();
+				}
+				return result;
+			}
+			else{
+				return "Error";
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return "Error";
+		}
+		finally {
+            session.close();
+        }
+	}
+
+	@GetMapping(value="/genre",params="id")
+	public String genre(@RequestParam(name="id") String id){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		try {
+            Genre genre = session.get(Genre.class,id);
+			if(genre != null){
+				System.out.println("Genre found");
+
+				return genre.toString();
 			}
 			else{
 				return "Error";

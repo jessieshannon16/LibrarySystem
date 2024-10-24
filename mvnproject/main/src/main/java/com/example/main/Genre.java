@@ -43,4 +43,9 @@ public class Genre implements Serializable{
 		this.books = books;
 	}
 
+	@Override
+	public String toString(){
+		return this.Name;
+	}
+
 }
