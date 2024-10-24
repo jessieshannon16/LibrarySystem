@@ -1,0 +1,8 @@
+img{
+    height:20px;
+    width:20px;
+}
+.card-img, .card-img-bottom, .card-img-top {
+    height:60px;
+    width:60px;
+}

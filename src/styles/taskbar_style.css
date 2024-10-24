@@ -1,0 +1,31 @@
+.taskbar{
+        background: #009B77;        ;
+       
+        /*grid-template-columns: 1fr repeat(auto, 3)1fr; */
+       
+        font-size: 30px;
+
+
+        display:grid;
+        grid-template-columns: 1fr repeat(3, auto)1fr;
+        margin: 0px;
+      
+}
+
+li{
+    list-style: none;
+    padding: 20px;
+}
+
+li a {
+    text-decoration: none;
+    color: white;
+}
+
+button{
+    background: none;
+    border: none;
+    height:60px;
+    float:right;
+    color:white;
+}

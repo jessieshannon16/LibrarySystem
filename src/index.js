@@ -3,11 +3,36 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+import Browse from './pages/Browse';
+import CheckIn from './pages/CheckIn';
+import CheckOut from './pages/CheckOut';
+import Login from './pages/Login';
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [{
+      path: '/Browse',
+      element: <Browse />},
+      {path: '/CheckIn',
+      element: <CheckIn />},
+      {path: '/CheckOut',
+      element: <CheckOut />},
+      {path: '/Login',
+    element: <Login />},
+    ]
+  }
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <RouterProvider router={router}>
     <App />
+    </RouterProvider>
   </React.StrictMode>
 );
 
