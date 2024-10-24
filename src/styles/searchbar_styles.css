@@ -1,0 +1,8 @@
+.searchButton{
+    background-color: #005C46;
+    color: white;
+}
+
+.searchBar, .bg-body-tertiary {
+    background-color: aquamarine;
+}
