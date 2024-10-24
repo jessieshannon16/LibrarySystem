@@ -5,14 +5,22 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.Set;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.CascadeType;
+import java.io.*;
 
 @Entity
-public class Reservations{
+public class Reservations implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
     private int UserId;
     private LocalDateTime TakeDate;
+    private Users user;
+	private Set<BookReservationMapping> bookReservationMappings;
 
 	public int getId() {
 		return this.Id;
@@ -36,5 +44,24 @@ public class Reservations{
 
 	public void setTakeDate(LocalDateTime TakeDate) {
 		this.TakeDate = TakeDate;
+	}
+
+	@ManyToOne
+	@JoinColumn(name="UserId", referencedColumnName="Id")
+	public Users getUser() {
+		return this.user;
+	}
+
+	public void setUser(Users user) {
+		this.user = user;
+	}
+
+	@OneToMany(mappedBy="reservations",cascade = CascadeType.ALL)
+	public Set<BookReservationMapping> getBookReservationMappings() {
+		return this.bookReservationMappings;
+	}
+
+	public void setBookReservationMappings(Set<BookReservationMapping> bookReservationMappings) {
+		this.bookReservationMappings = bookReservationMappings;
 	}
 }

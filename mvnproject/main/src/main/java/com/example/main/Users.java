@@ -5,9 +5,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.Set;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
+import java.io.*;
 
 @Entity
-public class Users{
+public class Users implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
@@ -17,6 +21,7 @@ public class Users{
     private String Password;
     private LocalDateTime LastLogin;
     private boolean IsActive;
+	private Set<Reservations> reservations;
 
 	public int getId() {
 		return this.Id;
@@ -73,4 +78,14 @@ public class Users{
 	public void setIsActive(boolean IsActive) {
 		this.IsActive = IsActive;
 	}
+
+	@OneToMany(mappedBy="user",cascade = CascadeType.ALL)
+	public Set<Reservations> getReservations() {
+		return this.reservations;
+	}
+
+	public void setReservations(Set<Reservations> reservations) {
+		this.reservations = reservations;
+	}
+
 }   

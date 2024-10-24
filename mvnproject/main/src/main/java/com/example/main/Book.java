@@ -5,9 +5,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.Set;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.CascadeType;
+import java.io.*;
 
 @Entity
-public class Book{
+public class Book implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String Isbn;
@@ -16,6 +22,10 @@ public class Book{
     private int Copies;
     private String Title;
     private String Blurb;
+	private Genre genre;
+	private BorrowLength borrowLength;
+	private Set<BookAuthorMapping> bookAuthorMappings;
+	private Set<BookReservationMapping> bookReservationMappings;
 
 	public String getIsbn() {
 		return this.Isbn;
@@ -63,5 +73,48 @@ public class Book{
 
 	public void setBlurb(String Blurb) {
 		this.Blurb = Blurb;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name="GenreId", referencedColumnName="Id")
+	public Genre getGenre() {
+		return this.genre;
+	}
+
+	public void setGenre(Genre genre) {
+		this.genre = genre;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name="BorrowLengthId", referencedColumnName="Id")
+	public BorrowLength getBorrowLength() {
+		return this.borrowLength;
+	}
+
+	public void setBorrowLength(BorrowLength borrowLength) {
+		this.borrowLength = borrowLength;
+	}
+
+	@OneToMany(mappedBy="book",cascade = CascadeType.ALL)
+	public Set<BookAuthorMapping> getBookAuthorMappings() {
+		return this.bookAuthorMappings;
+	}
+
+	public void setBookAuthorMappings(Set<BookAuthorMapping> bookAuthorMappings) {
+		this.bookAuthorMappings = bookAuthorMappings;
+	}
+
+	@OneToMany(mappedBy="book",cascade = CascadeType.ALL)
+	public Set<BookReservationMapping> getBookReservationMappings() {
+		return this.bookReservationMappings;
+	}
+
+	public void setBookReservationMappings(Set<BookReservationMapping> bookReservationMappings) {
+		this.bookReservationMappings = bookReservationMappings;
+	}
+
+	@Override
+	public String toString(){
+		return this.Title;
 	}
 }
