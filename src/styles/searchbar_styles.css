@@ -1,8 +1,15 @@
 .searchButton{
-    background-color: #005C46;
+    background-color: #009B77;
+    
     color: white;
+    border:#005C46
+    
 }
 
-.searchBar, .bg-body-tertiary {
-    background-color: aquamarine;
+
+
+.searchButton:hover {
+    background-color: #005C46;
+    color:white;
+
 }

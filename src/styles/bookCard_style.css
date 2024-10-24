@@ -13,5 +13,14 @@
 }
 
 .cardButton{
+    background-color: #009B77;
+        color:white;
+        border:#009B77;
+   
+}
+
+.cardButton:hover{
     background-color:#005C46
+        
+    
 }
