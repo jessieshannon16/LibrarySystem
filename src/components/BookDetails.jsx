@@ -6,12 +6,26 @@ import Modal from 'react-bootstrap/Modal';
 import book from '../assets/book.png'
 import Col from 'react-bootstrap/Col';
 import detailbutton_style from '../styles/detailbutton_styles.css'
+import { useNavigate } from 'react-router-dom';
 
 export default function DetailButton(){
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+let navigate = useNavigate()
+  const checkIn = () => {
+    let path = "/CheckIn";
+    navigate(path);
+  } 
+
+
+  const checkOut = () => {
+    let path = "/CheckOut";
+    navigate(path);
+  } 
+
 
   return (
     <>
@@ -35,10 +49,10 @@ export default function DetailButton(){
             
         </Modal.Body>
         <Modal.Footer>
-         <Button className="checkoutButton" onClick={handleClose}>
+         <Button className="checkoutButton" onClick={checkOut}>
             Check Out Book
           </Button>
-          <Button className="checkinButton" onClick={handleClose}>
+          <Button className="checkinButton" onClick={checkIn}>
             Check In Book
           </Button>
           <Button className="detailButton" onClick={handleClose}>

@@ -1,11 +1,9 @@
-import Icon_button from '../components/icon_button';
-import Taskbar from '../components/taskbar';
-
+import CheckOutForm from "../components/CheckOutForm";
 function CheckOut() {
   return (
-    <div className="App">
+    <div className="CheckOut">
         
-        <h1>Check-Out Book</h1>
+        <CheckOutForm />
     </div>
   );
 }
