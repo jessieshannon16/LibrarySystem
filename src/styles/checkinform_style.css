@@ -1,0 +1,31 @@
+.checkInBox{
+    
+    width:100%;
+    display:flex;
+    justify-content: center;
+
+    color: white;
+    margin-top: 4rem;
+}
+
+.checkInForm{
+    border-radius: 1rem;
+    padding: 2rem 6rem 2rem 6rem;
+    background-color: #99C49E;
+}
+
+.checkoutbutton{
+    background-color: #009B77;
+    color:white;
+    border:#009B77;
+}
+
+.checkoutbutton:hover{
+    background-color:#005C46
+
+}
+
+.title{
+    padding: 1rem;
+    text-decoration: underline;
+}

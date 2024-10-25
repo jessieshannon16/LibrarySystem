@@ -1,8 +1,26 @@
-img{
-    height:20px;
-    width:20px;
-}
+
 .card-img, .card-img-bottom, .card-img-top {
     height:60px;
     width:60px;
+}
+.btn.btn-success{
+    margin-bottom: 1rem;
+  
+}
+
+.card{
+   max-width: 540px
+}
+
+.cardButton{
+    background-color: #009B77;
+        color:white;
+        border:#009B77;
+   
+}
+
+.cardButton:hover{
+    background-color:#005C46
+        
+    
 }

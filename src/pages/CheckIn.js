@@ -1,12 +1,10 @@
-import Icon_button from '../components/icon_button';
-import Taskbar from '../components/taskbar';
+import CheckInForm from "../components/CheckInForm";
 
 function CheckIn() {
   return (
-    <div className="App">
+    <div className="CheckIn">
     
-        
-        <h1>Check-In Book</h1>
+        <CheckInForm />
 
     </div>
   );

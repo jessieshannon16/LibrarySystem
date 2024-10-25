@@ -1,13 +1,14 @@
 
 import CardGrid from '../components/CardGrid';
-import Icon_button from '../components/icon_button';
-import Taskbar from '../components/taskbar';
+import Searchbar from '../components/searchbar';
+
+
 
 function Browse() {
   return (
     <div className="Browse">
  
-        
+        <Searchbar />
         <CardGrid />
       
     </div>
