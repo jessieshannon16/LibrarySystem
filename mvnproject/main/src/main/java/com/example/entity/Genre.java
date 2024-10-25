@@ -1,29 +1,30 @@
 package com.example.entity;
 
+import java.io.Serializable;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.time.LocalDateTime;
-import java.util.Set;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.CascadeType;
-import java.io.*;
 
 @Entity
 public class Genre implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private int GenreId;
     private String Name;
-	private Set<Book> books;
 
-	public int getId() {
-		return this.Id;
+	@OneToMany(mappedBy="genre")
+	private List<Book> books;
+
+	public int getGenreId() {
+		return this.GenreId;
 	}
 
-	public void setId(int Id) {
-		this.Id = Id;
+	public void setGenreId(int GenreId) {
+		this.GenreId = GenreId;
 	}
 
 	public String getName() {
@@ -34,18 +35,13 @@ public class Genre implements Serializable{
 		this.Name = Name;
 	}
 
-	@OneToMany(mappedBy="genre",cascade = CascadeType.ALL)
-	public Set<Book> getBooks() {
+	
+	public List<Book> getBooks() {
 		return this.books;
-	}
-
-	public void setBooks(Set<Book> books) {
-		this.books = books;
 	}
 
 	@Override
 	public String toString(){
 		return this.Name;
 	}
-
 }

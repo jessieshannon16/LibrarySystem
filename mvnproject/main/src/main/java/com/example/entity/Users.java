@@ -1,34 +1,38 @@
 package com.example.entity;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.time.LocalDateTime;
-import java.util.Set;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.CascadeType;
-import java.io.*;
 
 @Entity
 public class Users implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+	@Column(insertable=false,updatable=false)
+    private int UserId;
     private String FirstName;
     private String LastName;
     private String Email;
     private String Password;
     private LocalDateTime LastLogin;
     private boolean IsActive;
-	private Set<Reservations> reservations;
 
-	public int getId() {
-		return this.Id;
+	@OneToMany(mappedBy="user")
+	private List<Reservations> reservations;
+
+	public int getUserId() {
+		return this.UserId;
 	}
 
-	public void setId(int Id) {
-		this.Id = Id;
+	public void setUserId(int UserId) {
+		this.UserId = UserId;
 	}
 
 	public String getFirstName() {
@@ -79,13 +83,8 @@ public class Users implements Serializable{
 		this.IsActive = IsActive;
 	}
 
-	@OneToMany(mappedBy="user",cascade = CascadeType.ALL)
-	public Set<Reservations> getReservations() {
+	
+	public List<Reservations> getReservations() {
 		return this.reservations;
 	}
-
-	public void setReservations(Set<Reservations> reservations) {
-		this.reservations = reservations;
-	}
-
 }   

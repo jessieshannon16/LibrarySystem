@@ -1,30 +1,31 @@
 package com.example.entity;
 
+import java.io.Serializable;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.time.LocalDateTime;
-import java.util.Set;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.CascadeType;
-import java.io.*;
 
 @Entity
 public class ContributionLevel implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private int ContributionLevelId;
     private String Level;
-	private Set<BookAuthorMapping> bookAuthorMappings;
+
+	@OneToMany(mappedBy="contributionLevel")
+	private List<BookAuthorMapping> bookAuthorMappings;
 	
 
-	public int getId() {
-		return this.Id;
+	public int getContributionLevelId() {
+		return this.ContributionLevelId;
 	}
 
-	public void setId(int Id) {
-		this.Id = Id;
+	public void setContributionLevelId(int ContributionLevelId) {
+		this.ContributionLevelId = ContributionLevelId;
 	}
 
 	public String getLevel() {
@@ -35,12 +36,8 @@ public class ContributionLevel implements Serializable{
 		this.Level = Level;
 	}
 
-	@OneToMany(mappedBy="contributionLevel",cascade = CascadeType.ALL)
-	public Set<BookAuthorMapping> getBookAuthorMappings() {
+	
+	public List<BookAuthorMapping> getBookAuthorMappings() {
 		return this.bookAuthorMappings;
-	}
-
-	public void setBookAuthorMappings(Set<BookAuthorMapping> bookAuthorMappings) {
-		this.bookAuthorMappings = bookAuthorMappings;
 	}
 }

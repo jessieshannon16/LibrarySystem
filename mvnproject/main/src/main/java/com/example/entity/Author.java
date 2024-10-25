@@ -1,30 +1,34 @@
 package com.example.entity;
 
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.time.LocalDateTime;
-import java.util.Set;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.CascadeType;
-import java.io.*;
 
 @Entity
 public class Author implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+	@Column(insertable=false,updatable=false)
+    private int AuthorId;
     private String FirstName;
     private String LastName;
-	private Set<BookAuthorMapping> bookAuthorMappings;
 
-	public int getId() {
-		return this.Id;
+	@OneToMany(mappedBy="author")
+	private Set<BookAuthorMapping> bookAuthorMappings = new HashSet<>();
+
+	public int getAuthorId() {
+		return this.AuthorId;
 	}
 
-	public void setId(int Id) {
-		this.Id = Id;
+	public void setAuthorId(int AuthorId) {
+		this.AuthorId = AuthorId;
 	}
 
 	public String getFirstName() {
@@ -43,15 +47,15 @@ public class Author implements Serializable{
 		this.LastName = LastName;
 	}
 
-	@OneToMany(mappedBy="author",cascade = CascadeType.ALL)
 	public Set<BookAuthorMapping> getBookAuthorMappings() {
 		return this.bookAuthorMappings;
 	}
 
-	public void setBookAuthorMappings(Set<BookAuthorMapping> bookAuthorMappings) {
+	public void setBookAuthorMappings(Set<BookAuthorMapping> bookAuthorMappings){
 		this.bookAuthorMappings = bookAuthorMappings;
 	}
 
+	@Override
 	public String toString(){
 		return this.FirstName + " " + this.LastName;
 	}

@@ -1,48 +1,37 @@
 package com.example.entity;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.time.LocalDateTime;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
-import java.io.*;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class BookReservationMapping implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
-    private int ReservationId;
-    private String Isbn;
+    private int BRMId;
     private LocalDateTime ReturnDate;
     private boolean IsReturned;
+
+	@ManyToOne
+	@JoinColumn(name="BookIsbn")
 	private Book book;
+
+	@ManyToOne
+	@JoinColumn(name="ReservationId")
 	private Reservations reservations;
 
-	public int getId() {
-		return this.Id;
+	public int getBRMId() {
+		return this.BRMId;
 	}
 
-	public void setId(int Id) {
-		this.Id = Id;
-	}
-
-	public int getReservationId() {
-		return this.ReservationId;
-	}
-
-	public void setReservationId(int ReservationId) {
-		this.ReservationId = ReservationId;
-	}
-
-	public String getIsbn() {
-		return this.Isbn;
-	}
-
-	public void setIsbn(String Isbn) {
-		this.Isbn = Isbn;
+	public void setBRMId(int BRMId) {
+		this.BRMId = BRMId;
 	}
 
 	public LocalDateTime getReturnDate() {
@@ -61,23 +50,11 @@ public class BookReservationMapping implements Serializable{
 		this.IsReturned = IsReturned;
 	}
 
-	@ManyToOne
-	@JoinColumn(name="Isbn")
 	public Book getBook() {
 		return this.book;
 	}
 
-	public void setBook(Book book) {
-		this.book = book;
-	}
-
-	@ManyToOne
-	@JoinColumn(name="ReservationId", referencedColumnName="Id")
 	public Reservations getReservations() {
 		return this.reservations;
-	}
-
-	public void setReservations(Reservations reservations) {
-		this.reservations = reservations;
 	}
 }

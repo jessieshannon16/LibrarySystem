@@ -1,25 +1,28 @@
 package com.example.main;
 
-import org.springframework.boot.SpringApplication;
+import java.lang.*;
+import java.util.List;
+
+import org.hibernate.Session;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import java.sql.*;
-import java.lang.*;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.example.entity.Author;
 import com.example.entity.Book;
 import com.example.entity.Genre;
 import com.example.util.HibernateUtil;
-import org.hibernate.Session;
-import jakarta.persistence.criteria.*;
-import java.util.*;
+
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
 
 @SpringBootApplication
 @RestController
 public class MainApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(MainApplication.class, args);
+		// SpringApplication.run(MainApplication.class, args);
+		com.example.population.Populator.populate();
 	}
 
 	private static <T> List<T> loadAllData(Class<T> type, Session session) {
