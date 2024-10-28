@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -45,6 +46,15 @@ public class ContributionLevel implements Serializable{
 	}
 
 	public static void createDefaults(Session session){
+		//check if table is empty
+		Query query = session.createQuery("select ContributionLevelId from ContributionLevel", int.class);
+		List list = query.list();
+
+		//if it is not, return
+		if (!list.isEmpty()){
+			return;
+		}
+
 		ContributionLevel cl1 = new ContributionLevel();
 		ContributionLevel cl2 = new ContributionLevel();
 		cl1.setLevel("Author");
