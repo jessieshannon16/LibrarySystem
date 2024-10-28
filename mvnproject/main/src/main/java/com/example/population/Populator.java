@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.entity.Book;
 import com.example.entity.BorrowLength;
+import com.example.entity.ContributionLevel;
 import com.example.entity.Genre;
 import com.example.util.HibernateUtil;
 
@@ -26,6 +27,7 @@ public class Populator {
             System.out.println(result.getTotalItems());
 
             BorrowLength.createDefaultBorrowLengths(session);
+            ContributionLevel.createDefaults(session);
 
             for(Item item:result.getItems()){
                 BookInfo info = item.getVolumeInfo();

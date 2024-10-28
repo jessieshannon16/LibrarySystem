@@ -3,6 +3,9 @@ package com.example.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -39,5 +42,22 @@ public class ContributionLevel implements Serializable{
 	
 	public List<BookAuthorMapping> getBookAuthorMappings() {
 		return this.bookAuthorMappings;
+	}
+
+	public static void createDefaults(Session session){
+		ContributionLevel cl1 = new ContributionLevel();
+		ContributionLevel cl2 = new ContributionLevel();
+		cl1.setLevel("Author");
+		cl2.setLevel("Publisher");
+
+		Transaction t = session.beginTransaction();
+		try{
+			session.persist(cl1);
+			session.persist(cl2);
+			t.commit();
+		}
+		catch(Exception e){
+			t.rollback();
+		}	
 	}
 }
