@@ -41,44 +41,21 @@ public class Populator {
                         break;
                     }
                 }
+
+                if(book.getBookIsbn() == null){
+                    continue;
+                }
                 
                 Transaction t;
                 Genre bookGenre;
                 int genreId = 1;
                 if (info.getCategories() != null){
-                    String genre = info.getCategories().get(0);
-
-                    Query query = session.createQuery("select GenreId from Genre where Name = '" + genre + "'", int.class);
-                    List list = query.list();
-
-                    
-
-                    if (list.size() > 0){
-                        genreId = (int) query.uniqueResult();
-                    }
-                    else{
-                        t = session.beginTransaction();
-                        try{
-                        
-                        Query queryInsert = session.createNativeQuery("insert into Genre(Name) values (?1)");
-                        queryInsert.setParameter(1, genre);
-                        int rowsCopied = queryInsert.executeUpdate();
-                        t.commit();
-                        Query queryId = session.createQuery("select GenreId from Genre where Name = '" + genre + "'", int.class);
-                        genreId = (int) queryId.uniqueResult();
-                        System.out.println(genreId);
-                        }
-                    
-                        catch(Exception e){
-                            t.rollback();
-                        }
-                    }
-                    
+                    genreId = Genre.getOrCreateGenre(info.getCategories().get(0),session);
                 }
                 
                 bookGenre = session.get(Genre.class, genreId);
                 book.setGenre(bookGenre);
-                System.out.println("test");
+
                 t = session.beginTransaction();
                 try{
                     session.persist(book);
