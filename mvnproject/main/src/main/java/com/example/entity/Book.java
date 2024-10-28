@@ -3,6 +3,7 @@ package com.example.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -15,7 +16,9 @@ public class Book implements Serializable{
     private String BookIsbn;
     private int Copies;
     private String Title;
+	@Column(length = 2000)
     private String Blurb;
+	private String Img;
 
 	@ManyToOne
 	@JoinColumn(name="GenreId")
@@ -62,6 +65,14 @@ public class Book implements Serializable{
 	public void setBlurb(String Blurb) {
 		this.Blurb = Blurb;
 	}
+
+	public String getImg() {
+		return this.Img;
+	}
+
+	public void setImg(String Img) {
+		this.Img = Img;
+	}
 	
 	public Genre getGenre() {
 		return this.genre;
@@ -83,7 +94,6 @@ public class Book implements Serializable{
 		return this.bookAuthorMappings;
 	}
 
-	
 	public List<BookReservationMapping> getBookReservationMappings() {
 		return this.bookReservationMappings;
 	}

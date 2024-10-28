@@ -1,9 +1,11 @@
 package com.example.main;
 
 import java.lang.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,8 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.entity.Author;
 import com.example.entity.Book;
+import com.example.entity.BorrowLength;
 import com.example.entity.Genre;
 import com.example.util.HibernateUtil;
+import com.example.util.Response;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -21,8 +25,8 @@ import jakarta.persistence.criteria.CriteriaQuery;
 @RestController
 public class MainApplication {
 	public static void main(String[] args) {
-		// SpringApplication.run(MainApplication.class, args);
-		com.example.population.Populator.populate();
+		SpringApplication.run(MainApplication.class, args);
+		// com.example.population.Populator.populate();
 	}
 
 	private static <T> List<T> loadAllData(Class<T> type, Session session) {
@@ -185,4 +189,51 @@ public class MainApplication {
             session.close();
         }
 	}
+
+	@GetMapping(value="/result")
+	public List<Response> response(){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		List<Response> responses = new ArrayList<>();
+
+		try {
+            List<Book> books = loadAllData(Book.class,session);
+			if(books != null){
+				System.out.println("Books found");
+				
+				
+				for(Book book:books){
+					Response currResponse = new Response();
+					currResponse.setIsbn(book.getBookIsbn());
+					currResponse.setTitle(book.getTitle());
+					currResponse.setBlurb(book.getBlurb());
+					currResponse.setImg(book.getImg());
+
+					Author author = book.getBookAuthorMappings().get(0).getAuthor();
+					currResponse.setAuthorName(author.getFirstName() + " " + author.getLastName());
+
+					Genre genre = book.getGenre();
+					currResponse.setGenre(genre.getName());
+
+					BorrowLength bl = book.getBorrowLength();
+					currResponse.setBorrowLength(bl.getMaxLength());
+
+					responses.add(currResponse);
+
+				}
+				return responses;
+			
+			}
+			else{
+				return responses;
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		finally {
+            session.close();
+        }
+	}
 }
+

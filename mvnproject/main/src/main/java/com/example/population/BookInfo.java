@@ -10,6 +10,7 @@ public class BookInfo{
     private String description;
     private int pageCount;
     private List<String> categories;
+	private Images imageLinks;
     private List<Isbn> industryIdentifiers;
 
 	public String getTitle() {
@@ -74,5 +75,13 @@ public class BookInfo{
 
     public void setPublisher(String publisher) {
         this.publisher = publisher;
+    }
+
+	 public Images getImageLinks() {
+        return this.imageLinks;
+    }
+
+    public void setImageLinks(Images imageLinks) {
+        this.imageLinks = imageLinks;
     }
 }

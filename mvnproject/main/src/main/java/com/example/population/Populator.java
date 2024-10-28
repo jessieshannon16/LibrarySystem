@@ -60,10 +60,13 @@ public class Populator {
                     continue;
                 }
 
-                if(desc.length() > 255){
-                    desc = desc.substring(0,255);
+                if(desc.length() > 2000){
+                    desc = desc.substring(0,2000);
                 }
                 book.setBlurb(desc);
+                Images imgs = info.getImageLinks();
+                if(imgs == null){continue;}
+                book.setImg(imgs.getThumbnail());
                 book.setTitle(info.getTitle());
                 BorrowLength borrow = session.get(BorrowLength.class, BorrowLength.getRandomId(session));
                 book.setBorrowLength(borrow);
