@@ -2,7 +2,12 @@ package com.example.entity;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -58,5 +63,36 @@ public class Author implements Serializable{
 	@Override
 	public String toString(){
 		return this.FirstName + " " + this.LastName;
+	}
+
+	public static int getOrCreateAuthor(String firstname, String lastname, Session session){
+		Transaction t;
+		int authorId = -1;
+		Query query = session.createQuery("select AuthorId from Author where FirstName = '" + firstname + "' and LastName = '" + lastname + "'", int.class);
+		List list = query.list();
+
+		if (!list.isEmpty()){
+			authorId = (int) query.uniqueResult();
+			return authorId;
+		}
+		else{
+			t = session.beginTransaction();
+			try{
+			
+				Query queryInsert = session.createNativeQuery("insert into Author(FirstName,LastName) values (?1,?2)");
+				queryInsert.setParameter(1, firstname);
+				queryInsert.setParameter(2, lastname);
+				queryInsert.executeUpdate();
+				t.commit();
+				Query queryId = session.createQuery("select AuthorId from Author where FirstName = '" + firstname + "' and LastName = '" + lastname + "'", int.class);
+				authorId = (int) queryId.uniqueResult();
+				return authorId;
+			}
+		
+			catch(Exception e){
+				t.rollback();
+				return authorId;
+			}
+		}
 	}
 }

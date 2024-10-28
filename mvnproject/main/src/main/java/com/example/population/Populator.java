@@ -1,5 +1,6 @@
 package com.example.population;
 
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -7,7 +8,9 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.web.client.RestTemplate;
 
+import com.example.entity.Author;
 import com.example.entity.Book;
+import com.example.entity.BookAuthorMapping;
 import com.example.entity.BorrowLength;
 import com.example.entity.ContributionLevel;
 import com.example.entity.Genre;
@@ -34,6 +37,22 @@ public class Populator {
                 if(info.getIndustryIdentifiers() == null){
                     continue;
                 }
+
+                List<String> authors = info.getAuthors();
+                if(authors == null || authors.isEmpty()){
+                    continue;
+                }
+                String author = info.getAuthors().get(0);
+                String[] authorWords = author.split(" ");
+                if(authorWords.length !=2 ){
+                    continue;
+                }
+
+                int authorId = Author.getOrCreateAuthor(authorWords[0], authorWords[1], session);
+                if (authorId == -1){continue;}
+
+                Author authorObj = session.get(Author.class, authorId);
+
                 Book book = new Book();
 
                 String desc = info.getDescription();
@@ -81,9 +100,23 @@ public class Populator {
                 catch(Exception e){
                     t.rollback();
                 }
+
+                ContributionLevel cl = session.get(ContributionLevel.class, 1);
                 
-                
-                
+                BookAuthorMapping bam = new BookAuthorMapping();
+                bam.setAuthor(authorObj);
+                bam.setBook(book);
+                bam.setContributionLevel(cl);
+
+                t = session.beginTransaction();
+                try{
+                    session.persist(bam);
+                    t.commit();
+                }
+                catch(Exception e){
+                    t.rollback();
+                }
+
             }
             session.close();
         }

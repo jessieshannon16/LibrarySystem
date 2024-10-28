@@ -38,13 +38,24 @@ public class BookAuthorMapping implements Serializable{
 	public Author getAuthor() {
 		return this.author;
 	}
+
+	public void setAuthor(Author author){
+		this.author = author;
+	}
 	
 	public Book getBook() {
 		return this.book;
+	}
+
+	public void setBook(Book book){
+		this.book = book;
 	}
 
 	public ContributionLevel getContributionLevel() {
 		return this.contributionLevel;
 	}
 
+	public void setContributionLevel(ContributionLevel contributionLevel){
+		this.contributionLevel = contributionLevel;
+	}
 }
