@@ -2,6 +2,7 @@ package com.example.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Random;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -64,10 +65,15 @@ public class BorrowLength implements Serializable{
 		}
 		catch(Exception e){
 			t.rollback();
-		}
+		}	
+	}
 
-		
+	public static int getRandomId(Session session){
+		Query query = session.createQuery("select BorrowLengthId from BorrowLength", int.class);
+		List list = query.list();
 
-		
+		Random random = new Random();
+		int index = random.nextInt(list.size());
+		return (int) list.get(index);
 	}
 }

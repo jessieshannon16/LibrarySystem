@@ -1,5 +1,6 @@
 package com.example.population;
 
+import java.util.Random;
 import java.util.Scanner;
 
 import org.hibernate.Session;
@@ -13,6 +14,8 @@ import com.example.util.HibernateUtil;
 
 public class Populator {
     public static void populate(){
+        Random random = new Random();
+
         System.out.println("Enter Query");
         Session session = HibernateUtil.getSessionFactory().openSession();
         try (Scanner input = new Scanner(System.in)) {
@@ -30,11 +33,20 @@ public class Populator {
                     continue;
                 }
                 Book book = new Book();
-                book.setBlurb(info.getDescription());
+
+                String desc = info.getDescription();
+                if(desc == null){
+                    continue;
+                }
+
+                if(desc.length() > 255){
+                    desc = desc.substring(0,255);
+                }
+                book.setBlurb(desc);
                 book.setTitle(info.getTitle());
-                BorrowLength borrow = session.get(BorrowLength.class, 1);
+                BorrowLength borrow = session.get(BorrowLength.class, BorrowLength.getRandomId(session));
                 book.setBorrowLength(borrow);
-                book.setCopies(5);
+                book.setCopies(random.nextInt(9) + 1);
                 for(Isbn isbn:info.getIndustryIdentifiers()){
                     if(isbn.getType().equals("ISBN_13")){
                         book.setBookIsbn(isbn.getIdentifier());
