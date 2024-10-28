@@ -3,6 +3,10 @@ package com.example.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,8 +39,35 @@ public class BorrowLength implements Serializable{
 		this.MaxLength = MaxLength;
 	}
 
-	
 	public List<Book> getBooks() {
 		return this.books;
+	}
+
+	public static void createDefaultBorrowLengths(Session session){
+		//check if table is empty
+		Query query = session.createQuery("select BorrowLengthId from BorrowLength", int.class);
+		List list = query.list();
+
+		//if it is not, return
+		if (!list.isEmpty()){
+			return;
+		}
+
+		//if it is, create default borrowLength
+		BorrowLength br = new BorrowLength();
+		br.setMaxLength(7);
+
+		Transaction t = session.beginTransaction();
+		try{
+			session.persist(br);
+			t.commit();
+		}
+		catch(Exception e){
+			t.rollback();
+		}
+
+		
+
+		
 	}
 }

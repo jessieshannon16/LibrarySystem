@@ -1,11 +1,9 @@
 package com.example.population;
 
-import java.util.List;
 import java.util.Scanner;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.entity.Book;
@@ -23,6 +21,8 @@ public class Populator {
             RestTemplate restTemplate = new RestTemplate();
             GoogleResult result = restTemplate.getForObject(uri,GoogleResult.class);
             System.out.println(result.getTotalItems());
+
+            BorrowLength.createDefaultBorrowLengths(session);
 
             for(Item item:result.getItems()){
                 BookInfo info = item.getVolumeInfo();
@@ -48,9 +48,12 @@ public class Populator {
                 
                 Transaction t;
                 Genre bookGenre;
-                int genreId = 1;
-                if (info.getCategories() != null){
+                int genreId = -1;
+                if (info.getCategories() != null && !info.getCategories().isEmpty()) {
                     genreId = Genre.getOrCreateGenre(info.getCategories().get(0),session);
+                }
+                if(genreId == -1){
+                    continue;
                 }
                 
                 bookGenre = session.get(Genre.class, genreId);

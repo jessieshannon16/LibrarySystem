@@ -51,7 +51,7 @@ public class Genre implements Serializable{
 
 	public static int getOrCreateGenre(String genre, Session session){
 		Transaction t;
-		int genreId = 1;
+		int genreId = -1;
 		Query query = session.createQuery("select GenreId from Genre where Name = '" + genre + "'", int.class);
 		List list = query.list();
 
